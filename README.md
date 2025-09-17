@@ -1,6 +1,6 @@
-# T3 Tech Solutions - iOS App Developer Portfolio
+# T3 Technology Solutions - Company Website
 
-A modern, responsive website showcasing iOS applications developed by T3 Tech Solutions.
+A modern, responsive website showcasing iOS applications developed by T3 Technology Solutions.
 
 ## 🚀 Features
 
@@ -8,7 +8,7 @@ A modern, responsive website showcasing iOS applications developed by T3 Tech So
 - **Responsive Layout**: Optimized for desktop, tablet, and mobile devices
 - **Interactive Elements**: Smooth scrolling, animations, and form handling
 - **App Showcase**: Detailed information about Tiny-Trax and future apps
-- **Contact Form**: Functional contact form with validation
+- **Direct Contact**: Email-based contact system for business inquiries
 - **Performance Optimized**: Fast loading with lazy loading and debounced events
 
 ## 📱 Featured App
@@ -93,17 +93,13 @@ The website uses a blue color scheme. To change colors, update these CSS variabl
 - Text: `#2c3e50`
 - Background: `#ffffff`
 
-## 📧 Contact Form
+## 📧 Contact System
 
-The contact form includes:
-- **Validation**: Email format and required field checking
-- **User Feedback**: Success/error notifications
+The contact system includes:
+- **Direct Email**: T3-Tech-Solutions@Outlook.com for business inquiries
+- **Professional Presentation**: Company-focused contact information
 - **Responsive Design**: Works on all device sizes
-
-**Note**: The form currently shows a success message. To make it functional, integrate with:
-- Email services (EmailJS, Formspree)
-- Backend API
-- Server-side processing
+- **Business Inquiries**: Ready for project discussions and collaborations
 
 ## 🔧 Browser Support
 
@@ -164,9 +160,9 @@ This project is created for T3 Tech Solutions. All rights reserved.
 ## 🤝 Support
 
 For questions or support regarding this website:
-- Email: contact@t3techsolutions.com
+- Email: T3-Tech-Solutions@Outlook.com
 - Check the App Store for app-related support
 
 ---
 
-**Built with ❤️ for showcasing innovative iOS applications**
+**Built with ❤️ for T3 Technology Solutions - showcasing innovative iOS applications**
