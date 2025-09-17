@@ -3,495 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#2563eb">
-    <title>Savvy Spending - Personal Finance Tracker</title>
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- iOS Specific Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Savvy Spending">
-    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
-    
-    <!-- Styles -->
+    <title>T3 Tech Solutions - iOS App Developer</title>
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Chart.js for Charts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- App Container -->
-    <div id="app">
-        <!-- Header -->
-        <header class="app-header">
-            <h1><i class="fas fa-piggy-bank"></i> Savvy Spending</h1>
-            <div class="header-controls">
-                <button id="settingsBtn" class="icon-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="T3 logo clearbg.png" alt="T3 Technology Solutions" class="logo-image">
             </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Dashboard Section -->
-            <section id="dashboard" class="section active">
-                <!-- Balance Overview -->
-                <div class="balance-card">
-                    <div class="balance-item">
-                        <span class="balance-label">Current Balance</span>
-                        <span class="balance-amount" id="currentBalance">$0.00</span>
-                    </div>
-                    <div class="balance-row">
-                        <div class="balance-item income">
-                            <span class="balance-label">Income</span>
-                            <span class="balance-amount" id="totalIncome">$0.00</span>
-                        </div>
-                        <div class="balance-item expense">
-                            <span class="balance-label">Expenses</span>
-                            <span class="balance-amount" id="totalExpenses">$0.00</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Action Buttons -->
-                <div class="quick-actions">
-                    <h3>Quick Actions</h3>
-                    <div class="quick-buttons">
-                        <!-- Quick Action Buttons (Alphabetical Order) -->
-                        <button class="quick-btn custom" id="customBtn">
-                            <i class="fas fa-plus-circle"></i>
-                            <span>Custom</span>
-                        </button>
-                        <button class="quick-btn expense" data-category="food" data-amount="">
-                            <i class="fas fa-utensils"></i>
-                            <span>Food</span>
-                        </button>
-                        <button class="quick-btn expense" data-category="entertainment" data-amount="">
-                            <i class="fas fa-film"></i>
-                            <span>Fun</span>
-                        </button>
-                        <button class="quick-btn income" data-category="salary" data-amount="">
-                            <i class="fas fa-plus"></i>
-                            <span>Income</span>
-                        </button>
-                        <button class="quick-btn expense" data-category="shopping" data-amount="">
-                            <i class="fas fa-shopping-bag"></i>
-                            <span>Shopping</span>
-                        </button>
-                        <button class="quick-btn expense" data-category="transport" data-amount="">
-                            <i class="fas fa-car"></i>
-                            <span>Transport</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Recent Transactions -->
-                <div class="recent-transactions">
-                    <h3>Recent Transactions</h3>
-                    <div id="transactionsList" class="transactions-list">
-                        <!-- Transactions will be populated here -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- Transactions Section (Expenses Only) -->
-            <section id="transactions" class="section">
-                <div class="section-header">
-                    <h2>All Expenses</h2>
-                    <button id="addExpenseBtn" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add Expense
-                    </button>
-                </div>
-                
-                <!-- Date Filter Controls -->
-                <div class="date-filter-controls">
-                    <!-- Quick Date Filters -->
-                    <div class="quick-date-filters">
-                        <button class="quick-date-btn expense-date-filter" data-period="today">Today</button>
-                        <button class="quick-date-btn expense-date-filter" data-period="7days">Last 7 Days</button>
-                        <button class="quick-date-btn expense-date-filter" data-period="4weeks">Last 4 Weeks</button>
-                        <button class="quick-date-btn expense-date-filter" data-period="3months">Last 3 Months</button>
-                        <button class="quick-date-btn expense-date-filter" data-period="6months">Last 6 Months</button>
-                        <button class="quick-date-btn expense-date-filter" data-period="1year">Last Year</button>
-                    </div>
-                    
-                    <!-- Custom Date Range -->
-                    <div class="filter-row">
-                        <div class="filter-group">
-                            <label for="expenseDateFromFilter">From:</label>
-                            <input type="date" id="expenseDateFromFilter">
-                        </div>
-                        <div class="filter-group">
-                            <label for="expenseDateToFilter">To:</label>
-                            <input type="date" id="expenseDateToFilter">
-                        </div>
-                        <button id="clearExpenseDateFiltersBtn" class="btn btn-secondary btn-small">Reset</button>
-                    </div>
-                </div>
-
-                <!-- Filter Controls -->
-                <div class="filter-controls">
-                    <select id="expenseCategoryFilter">
-                        <option value="">All Categories</option>
-                        <option value="food">Food</option>
-                        <option value="transport">Transport</option>
-                        <option value="shopping">Shopping</option>
-                        <option value="entertainment">Entertainment</option>
-                        <option value="bills">Bills</option>
-                        <option value="health">Health</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                <div id="allExpensesList" class="transactions-list">
-                    <!-- All expenses will be populated here -->
-                </div>
-            </section>
-
-            <!-- Income Section -->
-            <section id="income" class="section">
-                <div class="section-header">
-                    <h2>All Income</h2>
-                    <button id="addIncomeBtn" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add Income
-                    </button>
-                </div>
-                
-                <!-- Income Summary -->
-                <div class="income-summary">
-                    <div class="summary-card">
-                        <div class="summary-label">Total Income</div>
-                        <div class="summary-amount" id="totalIncomeDisplay">$0.00</div>
-                    </div>
-                    <div class="summary-card">
-                        <div class="summary-label">This Month</div>
-                        <div class="summary-amount" id="monthlyIncomeDisplay">$0.00</div>
-                    </div>
-                </div>
-
-                <!-- Date Filter Controls -->
-                <div class="date-filter-controls">
-                    <!-- Quick Date Filters -->
-                    <div class="quick-date-filters">
-                        <button class="quick-date-btn income-date-filter" data-period="today">Today</button>
-                        <button class="quick-date-btn income-date-filter" data-period="7days">Last 7 Days</button>
-                        <button class="quick-date-btn income-date-filter" data-period="4weeks">Last 4 Weeks</button>
-                        <button class="quick-date-btn income-date-filter" data-period="3months">Last 3 Months</button>
-                        <button class="quick-date-btn income-date-filter" data-period="6months">Last 6 Months</button>
-                        <button class="quick-date-btn income-date-filter" data-period="1year">Last Year</button>
-                    </div>
-                    
-                    <!-- Custom Date Range -->
-                    <div class="filter-row">
-                        <div class="filter-group">
-                            <label for="incomeDateFromFilter">From:</label>
-                            <input type="date" id="incomeDateFromFilter">
-                        </div>
-                        <div class="filter-group">
-                            <label for="incomeDateToFilter">To:</label>
-                            <input type="date" id="incomeDateToFilter">
-                        </div>
-                        <button id="clearIncomeDateFiltersBtn" class="btn btn-secondary btn-small">Reset</button>
-                    </div>
-                </div>
-
-                <div id="allIncomeList" class="transactions-list">
-                    <!-- All income will be populated here -->
-                </div>
-            </section>
-
-            <!-- All Transactions Section -->
-            <section id="all-transactions" class="section">
-                <div class="section-header">
-                    <h2>All Transactions</h2>
-                    <button id="addAllTransactionBtn" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add Transaction
-                    </button>
-                </div>
-                
-                <!-- Date Filter Controls -->
-                <div class="date-filter-controls">
-                    <!-- Quick Date Filters -->
-                    <div class="quick-date-filters">
-                        <button class="quick-date-btn" data-period="today">Today</button>
-                        <button class="quick-date-btn" data-period="7days">Last 7 Days</button>
-                        <button class="quick-date-btn" data-period="4weeks">Last 4 Weeks</button>
-                        <button class="quick-date-btn" data-period="3months">Last 3 Months</button>
-                        <button class="quick-date-btn" data-period="6months">Last 6 Months</button>
-                        <button class="quick-date-btn" data-period="1year">Last Year</button>
-                    </div>
-                    
-                    <!-- Custom Date Range -->
-                    <div class="filter-row">
-                        <div class="filter-group">
-                            <label for="dateFromFilter">From:</label>
-                            <input type="date" id="dateFromFilter">
-                        </div>
-                        <div class="filter-group">
-                            <label for="dateToFilter">To:</label>
-                            <input type="date" id="dateToFilter">
-                        </div>
-                        <button id="clearDateFiltersBtn" class="btn btn-secondary btn-small">Reset</button>
-                    </div>
-                </div>
-
-                <!-- Filter Controls -->
-                <div class="filter-controls">
-                    <select id="allCategoryFilter">
-                        <option value="">All Categories</option>
-                        <option value="food">Food</option>
-                        <option value="transport">Transport</option>
-                        <option value="shopping">Shopping</option>
-                        <option value="entertainment">Entertainment</option>
-                        <option value="bills">Bills</option>
-                        <option value="health">Health</option>
-                        <option value="salary">Salary</option>
-                        <option value="other">Other</option>
-                    </select>
-                    <select id="allTypeFilter">
-                        <option value="">All Types</option>
-                        <option value="income">Income</option>
-                        <option value="expense">Expense</option>
-                    </select>
-                </div>
-
-                <div id="allTransactionsList" class="transactions-list">
-                    <!-- All transactions will be populated here -->
-                </div>
-            </section>
-
-            <!-- Bills Section -->
-            <section id="bills" class="section">
-                <div class="section-header">
-                    <h2>Bills & Recurring</h2>
-                    <button id="addBillBtn" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add Bill
-                    </button>
-                </div>
-                
-                <div id="billsList" class="bills-list">
-                    <!-- Bills will be populated here -->
-                </div>
-            </section>
-
-            <!-- Reports Section -->
-            <section id="reports" class="section">
-                <h2>Spending Reports</h2>
-                
-                <!-- Monthly Summary -->
-                <div class="report-card">
-                    <h3>This Month Summary</h3>
-                    <div id="monthlyChart" class="chart-container">
-                        <!-- Chart will be rendered here -->
-                    </div>
-                </div>
-
-                <!-- Category Breakdown -->
-                <div class="report-card">
-                    <h3>Category Breakdown</h3>
-                    <div class="chart-container">
-                        <canvas id="categoryPieChart" width="300" height="300"></canvas>
-                    </div>
-                    <div id="categoryLegend" class="category-legend">
-                        <!-- Category legend will be populated here -->
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Bottom Navigation -->
-        <nav class="bottom-nav">
-            <button class="nav-btn active" data-section="dashboard">
-                <i class="fas fa-home"></i>
-                <span>Dashboard</span>
-            </button>
-            <button class="nav-btn" data-section="all-transactions">
-                <i class="fas fa-list"></i>
-                <span>All</span>
-            </button>
-            <button class="nav-btn" data-section="transactions">
-                <i class="fas fa-minus-circle"></i>
-                <span>Expenses</span>
-            </button>
-            <button class="nav-btn" data-section="income">
-                <i class="fas fa-plus-circle"></i>
-                <span>Income</span>
-            </button>
-            <button class="nav-btn" data-section="bills">
-                <i class="fas fa-file-invoice"></i>
-                <span>Bills</span>
-            </button>
-            <button class="nav-btn" data-section="reports">
-                <i class="fas fa-chart-pie"></i>
-                <span>Reports</span>
-            </button>
-        </nav>
-
-    </div>
-
-    <!-- Modal for Adding Transactions -->
-    <div id="transactionModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">Add Transaction</h3>
-                <button class="close-btn" id="closeModal">
-                    <i class="fas fa-times"></i>
-                </button>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#apps" class="nav-link">Apps</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
-            <form id="transactionForm">
-                <div class="form-group">
-                    <label for="transactionType">Type</label>
-                    <select id="transactionType" required>
-                        <option value="expense">Expense</option>
-                        <option value="income">Income</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="transactionAmount">Amount ($)</label>
-                    <input type="number" id="transactionAmount" step="0.01" min="0" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="transactionCategory">Category</label>
-                    <select id="transactionCategory" required>
-                        <option value="food">Food & Dining</option>
-                        <option value="transport">Transportation</option>
-                        <option value="shopping">Shopping</option>
-                        <option value="entertainment">Entertainment</option>
-                        <option value="bills">Bills & Utilities</option>
-                        <option value="health">Health & Fitness</option>
-                        <option value="salary">Salary</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="transactionDescription">Description</label>
-                    <input type="text" id="transactionDescription" placeholder="Optional description">
-                </div>
-                
-                <div class="form-group">
-                    <label for="transactionDate">Date</label>
-                    <input type="date" id="transactionDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="transactionTime">Time (optional)</label>
-                    <input type="time" id="transactionTime" placeholder="Leave blank for current time">
-                </div>
-                
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" id="cancelTransaction">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Transaction</button>
-                </div>
-            </form>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- Modal for Adding Bills -->
-    <div id="billModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add Recurring Bill</h3>
-                <button class="close-btn" id="closeBillModal">
-                    <i class="fas fa-times"></i>
-                </button>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Creating Beautiful iOS Apps</h1>
+                <p class="hero-subtitle">Developer of innovative productivity and lifestyle applications for iOS</p>
+                <div class="hero-buttons">
+                    <a href="#apps" class="btn btn-primary">View My Apps</a>
+                    <a href="mailto:T3-Tech-Solutions@Outlook.com" class="btn btn-secondary">Contact Me</a>
+                </div>
             </div>
-            <form id="billForm">
-                <div class="form-group">
-                    <label for="billName">Bill Name</label>
-                    <input type="text" id="billName" placeholder="e.g., Netflix, Rent, Phone" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="billAmount">Amount ($)</label>
-                    <input type="number" id="billAmount" step="0.01" min="0" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="billFrequency">Frequency</label>
-                    <select id="billFrequency" required>
-                        <option value="monthly">Monthly</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="yearly">Yearly</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="billDueDate">Next Due Date</label>
-                    <input type="date" id="billDueDate" required>
-                </div>
-                
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" id="cancelBill">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Bill</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Settings Modal -->
-    <div id="settingsModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Settings</h3>
-                <button class="close-btn" id="closeSettingsModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="settings-content">
-                <div class="settings-section">
-                    <h4>Export Data</h4>
-                    <p>Download your financial data as a spreadsheet</p>
-                    <div class="settings-actions">
-                        <button id="exportExpensesBtn" class="btn btn-primary">
-                            <i class="fas fa-download"></i> Export Expenses (CSV)
-                        </button>
-                        <button id="exportAllDataBtn" class="btn btn-secondary">
-                            <i class="fas fa-file-export"></i> Export All Data (JSON)
-                        </button>
+            <div class="hero-image">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <i class="fas fa-mobile-alt"></i>
                     </div>
-                </div>
-                
-                <div class="settings-section">
-                    <h4>Data Management</h4>
-                    <p>Backup and restore your data</p>
-                    <div class="settings-actions">
-                        <input type="file" id="csvFileInput" accept=".csv" style="display: none;" />
-                        <button id="importCsvBtn" class="btn btn-secondary">
-                            <i class="fas fa-upload"></i> Import from CSV
-                        </button>
-                        <button id="clearDataBtn" class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Clear All Data
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="settings-section">
-                    <h4>About</h4>
-                    <p>Savvy Spending v1.0<br>Personal Finance Tracker</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Donation Footer -->
-    <footer class="donation-footer">
-        <p>
-            <i class="fas fa-heart"></i>
-            Love the app? Consider donating to 
-            <a href="mailto:your-paypal@email.com" class="donation-link">your-paypal@email.com</a>. 
-            Any amount will be greatly appreciated to keep the app free to use.
-        </p>
+    <!-- Apps Section -->
+    <section id="apps" class="apps-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>My iOS Applications</h2>
+                <p>Carefully crafted apps designed to enhance your daily life</p>
+            </div>
+            
+            <div class="apps-grid">
+                <!-- Tiny-Trax App Card -->
+                <div class="app-card">
+                    <div class="app-icon">
+                        <img src="tinyytraxappicon.png" alt="Tiny-Trax App Icon" class="app-icon-image">
+                    </div>
+                    <div class="app-content">
+                        <h3>Tiny-Trax</h3>
+                        <p class="app-category">Productivity • Baby Tracking</p>
+                        <p class="app-description">
+                            Simplify baby tracking with our adorable dino-themed app! Log feeds, diapers, sleep, and activities in seconds. 
+                            Perfect for busy parents with comprehensive tracking features.
+                        </p>
+                        <div class="app-features">
+                            <span class="feature-tag">Multi-Baby Support</span>
+                            <span class="feature-tag">Emergency Contacts</span>
+                            <span class="feature-tag">Data Export</span>
+                            <span class="feature-tag">Offline Functionality</span>
+                        </div>
+                        <div class="app-links">
+                            <a href="https://apps.apple.com/us/app/tiny-trax/id6751150635" target="_blank" class="app-store-link">
+                                <i class="fab fa-apple"></i>
+                                Download on App Store
+                            </a>
+                        </div>
+                        <div class="app-stats">
+                            <div class="stat">
+                                <span class="stat-number">16+</span>
+                                <span class="stat-label">Age Rating</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">Free</span>
+                                <span class="stat-label">Base Price</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">iOS 17.1+</span>
+                                <span class="stat-label">Requirement</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder for future apps -->
+                <div class="app-card coming-soon">
+                    <div class="app-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="app-content">
+                        <h3>More Apps Coming Soon</h3>
+                        <p class="app-category">Stay Tuned</p>
+                        <p class="app-description">
+                            I'm constantly working on new innovative applications. 
+                            Follow me for updates on upcoming releases!
+                        </p>
+                        <div class="app-features">
+                            <span class="feature-tag">Innovation</span>
+                            <span class="feature-tag">Quality</span>
+                            <span class="feature-tag">User-Focused</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About the Developer</h2>
+                    <p>
+                        Hi, I'm Chou Yang, an iOS developer who leverages AI-powered tools to create apps that make a difference in people's lives. 
+                        I specialize in productivity and lifestyle applications that combine beautiful design with practical functionality.
+                    </p>
+                    <p>
+                        My focus is on creating intuitive user experiences that solve real-world problems. 
+                        From baby tracking apps that help busy parents to productivity tools that enhance daily routines, 
+                        I believe technology should simplify and enrich our lives.
+                    </p>
+                </div>
+                <div class="about-image">
+                    <div class="developer-avatar">
+                        <img src="T3-Cartoon.png" alt="Chou Yang - iOS Developer" class="developer-photo">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Have a project in mind or want to collaborate? I'd love to hear from you!</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:T3-Tech-Solutions@Outlook.com">T3-Tech-Solutions@Outlook.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-apple"></i>
+                        <div>
+                            <h4>App Store</h4>
+                            <p>View my published apps</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Available for remote work</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-info-extended">
+                    <div class="contact-message">
+                        <h3>Ready to Work Together?</h3>
+                        <p>I'm always interested in new projects and collaborations. Feel free to reach out via email to discuss your iOS app ideas or development needs.</p>
+                        <a href="mailto:T3-Tech-Solutions@Outlook.com" class="btn btn-primary email-button">
+                            <i class="fas fa-envelope"></i>
+                            Send Email
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="T3 logo clearbg.png" alt="T3 Technology Solutions" class="footer-logo-image">
+                    <p>Creating innovative iOS applications</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#apps">Apps</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 T3 Tech Solutions. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
